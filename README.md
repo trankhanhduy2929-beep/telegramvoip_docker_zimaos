@@ -1,7 +1,7 @@
 # Telegram VoIP Notifier cho ZimaOS
 
 Gói Docker Compose để chạy **Telegram VoIP Notifier** trên ZimaOS, dùng image
-public `ghcr.io/trankhanhduy2929-beep/telegram_voip:0.1.10` (amd64/arm64).
+public `ghcr.io/trankhanhduy2929-beep/telegram_voip:0.1.11` (amd64/arm64).
 
 Repo này chỉ chứa cấu hình triển khai, không chứa source. Source gốc vẫn nằm ở
 repo private; image được build và publish từ pipeline riêng.
@@ -51,7 +51,8 @@ lại container.
 1. Mở app, nhập API token.
 2. Vào **Cài đặt → Thông tin Telegram**, nhập `api_id`, `api_hash`, bấm **Lưu**.
 3. Thêm tài khoản Telegram, nhập số điện thoại, OTP và mật khẩu 2FA nếu có.
-4. Giọng TTS mặc định là **Hoài My** (`vi-VN-HoaiMyNeural`). Có thể đổi trong
+4. Trường `account` nhận ID, số điện thoại hoặc tên tài khoản gửi.
+5. Giọng TTS mặc định là **Hoài My** (`vi-VN-HoaiMyNeural`). Có thể đổi trong
    Cài đặt; `vi-VN-NamMinhNeural` chỉ là giọng nam thay thế.
 
 ## Biến môi trường

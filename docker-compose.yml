@@ -2,7 +2,7 @@ name: telegram-voip-zimaos
 
 services:
   telegram-voip:
-    image: ghcr.io/trankhanhduy2929-beep/telegram_voip:0.1.10
+    image: ghcr.io/trankhanhduy2929-beep/telegram_voip:0.1.11
     container_name: telegram-voip
     restart: unless-stopped
     init: true
@@ -50,10 +50,10 @@ x-casaos:
   architectures:
     - amd64
     - arm64
-  version: "0.1.10"
+  version: "0.1.11"
   update_at: "2026-10-21"
   release_notes:
-    en_US: Initial ZimaOS package using Telegram VoIP Notifier 0.1.10 with the HoaiMy Vietnamese voice.
+    en_US: "Telegram VoIP Notifier 0.1.11: select the sending account by ID, phone number, or account name."
   website: https://github.com/trankhanhduy2929-beep/telegramvoip_docker_zimaos
   repo: https://github.com/trankhanhduy2929-beep/telegramvoip_docker_zimaos
   support: https://github.com/trankhanhduy2929-beep/telegramvoip_docker_zimaos/issues
