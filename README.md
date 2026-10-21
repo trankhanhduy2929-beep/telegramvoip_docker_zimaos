@@ -1,7 +1,7 @@
 # Telegram VoIP Notifier cho ZimaOS
 
 Gói Docker Compose để chạy **Telegram VoIP Notifier** trên ZimaOS, dùng image
-public `ghcr.io/trankhanhduy2929-beep/telegram_voip:0.1.11` (amd64/arm64).
+public `ghcr.io/trankhanhduy2929-beep/telegram_voip:0.1.12` (amd64/arm64).
 
 Repo này chỉ chứa cấu hình triển khai, không chứa source. Source gốc vẫn nằm ở
 repo private; image được build và publish từ pipeline riêng.
