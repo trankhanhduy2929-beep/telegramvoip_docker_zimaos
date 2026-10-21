@@ -1,0 +1,68 @@
+name: telegram-voip-zimaos
+
+services:
+  telegram-voip:
+    image: ghcr.io/trankhanhduy2929-beep/telegram_voip:0.1.10
+    container_name: telegram-voip
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 30s
+    ports:
+      - target: 3332
+        published: "3332"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /DATA/AppData/telegram-voip
+        target: /data
+    environment:
+      TZ: ${TZ:-Asia/Ho_Chi_Minh}
+      TGVOIP_TTS_VOICE: ${TGVOIP_TTS_VOICE:-vi-VN-HoaiMyNeural}
+      TGVOIP_TTS_RATE: ${TGVOIP_TTS_RATE:-+0%}
+      TGVOIP_API_ID: ${TGVOIP_API_ID:-}
+      TGVOIP_API_HASH: ${TGVOIP_API_HASH:-}
+      TGVOIP_API_TOKEN: ${TGVOIP_API_TOKEN:-}
+    security_opt:
+      - no-new-privileges:true
+
+x-casaos:
+  id: io.github.trankhanhduy2929.telegramvoip
+  main: telegram-voip
+  index: /
+  port_map: "3332"
+  scheme: http
+  icon: https://raw.githubusercontent.com/trankhanhduy2929-beep/telegramvoip_docker_zimaos/main/icon.png
+  thumbnail: https://raw.githubusercontent.com/trankhanhduy2929-beep/telegramvoip_docker_zimaos/main/icon.png
+  title:
+    en_US: Telegram VoIP Notifier
+  tagline:
+    en_US: Telegram messages, calls and Vietnamese TTS for your homelab.
+  description:
+    en_US: >-
+      Run Telegram VoIP Notifier as a standalone Docker app on ZimaOS.
+      Manage multiple Telegram accounts, send messages and photos, create
+      Vietnamese voice messages with Edge TTS, and place P2P Telegram calls.
+      Data, Telegram sessions and the API token are stored in
+      /DATA/AppData/telegram-voip.
+  author: trankhanhduy2929-beep
+  developer: Telegram VoIP Notifier
+  category: Social
+  architectures:
+    - amd64
+    - arm64
+  version: "0.1.10"
+  update_at: "2026-10-21"
+  release_notes:
+    en_US: Initial ZimaOS package using Telegram VoIP Notifier 0.1.10 with the HoaiMy Vietnamese voice.
+  website: https://github.com/trankhanhduy2929-beep/telegramvoip_docker_zimaos
+  repo: https://github.com/trankhanhduy2929-beep/telegramvoip_docker_zimaos
+  support: https://github.com/trankhanhduy2929-beep/telegramvoip_docker_zimaos/issues
+  docs: https://github.com/trankhanhduy2929-beep/telegramvoip_docker_zimaos#readme
+  tips:
+    before_install:
+      en_US: |
+        The API token is generated on first start. Read it from
+        /DATA/AppData/telegram-voip/api_token or with:
+        docker exec telegram-voip cat /data/api_token
+
+        Keep port 3332 on your LAN or VPN. Do not expose it directly to the internet.

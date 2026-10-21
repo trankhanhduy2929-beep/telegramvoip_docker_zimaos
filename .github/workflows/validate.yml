@@ -1,0 +1,36 @@
+name: Validate ZimaOS package
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate Docker Compose
+        run: docker compose -f docker-compose.yml config -q
+
+      - name: Verify image is anonymously pullable
+        shell: bash
+        run: |
+          set -euo pipefail
+          IMAGE="$(docker compose -f docker-compose.yml config --format json | jq -r '.services["telegram-voip"].image')"
+          REPO="${IMAGE#ghcr.io/}"
+          REPO="${REPO%:*}"
+          TAG="${IMAGE##*:}"
+          TOKEN="$(curl -fsSL "https://ghcr.io/token?scope=repository:${REPO}:pull&service=ghcr.io" | jq -r .token)"
+          CODE="$(curl -fsSL -o /dev/null -w '%{http_code}' \
+            -H "Authorization: Bearer ${TOKEN}" \
+            -H 'Accept: application/vnd.oci.image.index.v1+json, application/vnd.docker.distribution.manifest.list.v2+json' \
+            "https://ghcr.io/v2/${REPO}/manifests/${TAG}")"
+          test "${CODE}" = "200"
+          echo "Image ${IMAGE} is pullable"
